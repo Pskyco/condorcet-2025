@@ -10,4 +10,10 @@ public class Teacher
         FirstName = firstName;
         LastName = lastName;
     }
+
+    public void DescribeMyself()
+    {
+        // this. is not mandatory in this case
+        Console.WriteLine($"Le nom de mon professeur est {LastName} et son prénom est {this.FirstName}");
+    }
 }
