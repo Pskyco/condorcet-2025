@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "conditions", "conditions\co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "loops", "loops\loops.csproj", "{09F4F444-B519-47FE-A58F-61D52D51E2D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ensembles", "ensembles\ensembles.csproj", "{BDE52317-333D-47A4-85BC-AD223A2ABC31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{09F4F444-B519-47FE-A58F-61D52D51E2D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09F4F444-B519-47FE-A58F-61D52D51E2D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09F4F444-B519-47FE-A58F-61D52D51E2D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE52317-333D-47A4-85BC-AD223A2ABC31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE52317-333D-47A4-85BC-AD223A2ABC31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE52317-333D-47A4-85BC-AD223A2ABC31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE52317-333D-47A4-85BC-AD223A2ABC31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
