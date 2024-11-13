@@ -20,19 +20,18 @@ try
 
     integers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
     integers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-// List<int> integers2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    // List<int> integers2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     Console.WriteLine($"Ma liste contient actuellement {integers.Count}"); // output: 10
+    // Garbage collector
+    // GC.Collect();
 
-// Garbage collector
-// GC.Collect();
-
-// sans codage défensif
+    // sans codage défensif
     Console.WriteLine($"Mon premier élément est : {integers[0]}"); // output: 1
     Console.WriteLine($"Mon premier élément est : {integers[1]}"); // output: 2
     Console.WriteLine($"Mon premier élément est : {integers[2]}"); // output: 3
 
-// avec codage défensif
+    // avec codage défensif
     if (integers.Count >= 1)
         Console.WriteLine($"Mon premier élément est : {integers[0]}"); // output: 1
     if (integers.Count >= 2)
@@ -107,20 +106,32 @@ try
     var areAllPositive = integers.All(x => x > 0);
     var areAnyPositive = integers.Any(x => x > 0);
 
-    var setAllUppercase = integersToString.Select(x => x.ToUpper()).ToList();
-    // CONDORCET, CYBERSECURITÉ
+    string[] myRandomStrings = ["cyBeRsÉcuritÉ", "cOndorCET"];
+    var setAllUppercase = myRandomStrings.Select(x => x.ToUpper()).ToList(); // output: CYBERSÉCURITÉ, CONDORCET
+    
+    // Check if all strings in my array are uppercase
+    // 1st way : iterate through all strings in list, and for each string, iterate through all characters
     // CONDORCET
     /// C
     /// O
     /// N
     // CYBERSECURITÉ
-    var areAllUppercase = integersToString.All(stringg => stringg.All(charr => charr.ToString() == charr.ToString().ToUpper()));
-    var areAllUppercase2 = integersToString.All(stringg => stringg == stringg.ToUpper());
-    
+    /// C
+    /// Y
+    /// B
+    var areAllUppercase = setAllUppercase.All(stringg => stringg.All(charr => charr.ToString() == charr.ToString().ToUpper())); // output: true
+    Console.WriteLine($"{nameof(areAllUppercase)} : {areAllUppercase}");
+    // 2nd way : compare all strings in list with their equivalent in uppercase
+    var areAllUppercase2 = setAllUppercase.All(stringg => stringg == stringg.ToUpper()); // output: true
+    Console.WriteLine($"{nameof(areAllUppercase2)} : {areAllUppercase2}");
+
     // x => x = lambda expression
     List<Person> persons2 = persons.OrderBy(x => x.FirstName).ThenByDescending(x => x.LastName).ToList();
     List<Person> persons3 = persons.OrderByDescending(x => x.FirstName).ThenBy(x => x.LastName).ToList();
 
+    // ^
+    // B.*
+    // $
     var personNamedBernard = persons.FirstOrDefault(x => x.FirstName == "Bernard");
     var personsWithFirstNameStartingWithB = persons.Where(x => x.FirstName.StartsWith("B", StringComparison.CurrentCultureIgnoreCase)).ToList();
     var personsWithFirstNameStartingWithB2 = persons.Where(x => new Regex("B.*").IsMatch(x.FirstName)).ToList();
@@ -133,13 +144,29 @@ try
     // 51 -> 75
     var subPersons3 = persons.Skip(50).Take(25);
     
-    // ^
-    // B.*
-    // $
-    
     var maxInt = integers.Max();
     var minInt = integers.Min();
     var avgInt = integers.Average();
+    
+    persons = new List<Person>()
+    {
+        new Person() { FirstName = "Bernard", LastName = "Dupont", NationalNumber = "65040721133" },
+        new Person() { FirstName = "Bernard", LastName = "Dupont", NationalNumber = "65040726622" },
+        new Person() { FirstName = "Bernard", LastName = "Dupont", NationalNumber = "71112136599" }
+    };
+
+    if (!persons.Any(x => x.NationalNumber == "65040726622"))
+        persons.Add(new Person() { FirstName = "Bernard", LastName = "Dupont", NationalNumber = "65040726622" });
+    
+    // 2014-06-11T18:00:11.222z
+    // 2014-06-11
+
+    var dico = new Dictionary<string, Person>();
+    dico.Add("65040721133", new Person() { FirstName = "Bernard", LastName = "Dupont", NationalNumber = "65040721133" });
+    dico.Add("65040726622", new Person() { FirstName = "Bernard", LastName = "Dupont", NationalNumber = "65040726622" });
+    dico.Add("71112136599", new Person() { FirstName = "Bernard", LastName = "Dupont", NationalNumber = "71112136599" });
+
+    dico["65040726622"] = new Person() { FirstName = "Bernard", LastName = "Dupond", NationalNumber = "65040726622" };
 }
 catch (Exception ex)
 {
