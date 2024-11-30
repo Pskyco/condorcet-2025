@@ -12,6 +12,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ensembles", "ensembles\ense
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "enums", "enums\enums.csproj", "{62217EB2-ECFC-4615-A60D-26051458227A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventApp", "EventApp\EventApp.csproj", "{AE7C042F-0F2E-4CAA-88E9-B7756EFA4BA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "referenceAndValueTypes", "referenceAndValueTypes\referenceAndValueTypes.csproj", "{6DF0A32F-FE8F-45DC-8229-A9E66BA37AE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{62217EB2-ECFC-4615-A60D-26051458227A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62217EB2-ECFC-4615-A60D-26051458227A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62217EB2-ECFC-4615-A60D-26051458227A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE7C042F-0F2E-4CAA-88E9-B7756EFA4BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE7C042F-0F2E-4CAA-88E9-B7756EFA4BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE7C042F-0F2E-4CAA-88E9-B7756EFA4BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE7C042F-0F2E-4CAA-88E9-B7756EFA4BA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DF0A32F-FE8F-45DC-8229-A9E66BA37AE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DF0A32F-FE8F-45DC-8229-A9E66BA37AE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DF0A32F-FE8F-45DC-8229-A9E66BA37AE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DF0A32F-FE8F-45DC-8229-A9E66BA37AE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
