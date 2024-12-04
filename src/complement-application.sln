@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "referenceAndValueTypes", "r
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{9F7364E9-3985-4EB8-B3CF-F05B46509D67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication.RazorPages", "WebApplication.RazorPages\WebApplication.RazorPages.csproj", "{F341F44A-503B-4890-878D-5C43FB48697A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,9 @@ Global
 		{9F7364E9-3985-4EB8-B3CF-F05B46509D67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F7364E9-3985-4EB8-B3CF-F05B46509D67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F7364E9-3985-4EB8-B3CF-F05B46509D67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F341F44A-503B-4890-878D-5C43FB48697A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F341F44A-503B-4890-878D-5C43FB48697A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F341F44A-503B-4890-878D-5C43FB48697A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F341F44A-503B-4890-878D-5C43FB48697A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
