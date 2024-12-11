@@ -1,40 +1,42 @@
-@* https://localhost:44368/MyForm/EditBasic/1 *@
-@* @page "{id}/toto/{myId}/tata/{email}" *@
-@* https://localhost:44368/MyForm/EditBasic/1/toto/65/tata/john.doe@test.fr *@
-@* https://localhost:44368/MyForm/EditBasic/1?myId=65&email=john.doe@test.fr *@
-@page "{id}"
-@* @page "{slug}" *@
-@* @page *@
-@model WebApplication.RazorPages.Pages.MyForm.EditBasic
+@page
+@model WebApplication.RazorPages.Pages.Persons.Create
 
-@* <form method="post"> *@
-    @* <div asp-validation-summary="All" class="text-danger" role="alert"></div> *@
+@section Scripts {
+    @* 
+    Ajouter ces scripts permet de déclencher la validation côté front-end 
+    = bloquer l'envoi si les champs requis ne sont pas complétés
+    = bloquer l'envoi si l'entrée ne correspond pas aux règles définies (regex..)
+    *@
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger" role="alert"></div>
 
     <div class="row mt-3">
         <label asp-for="FullName" class="form-label">Nom et prénom</label>
         <input type="text" asp-for="FullName" class="form-control"></input>
-        @* <span asp-validation-for="FullName"></span> *@
+        <span asp-validation-for="FullName"></span>
     </div>
 
     <div class="row mt-3">
         @* Note: il est obligatoire d'entrer une adresse e-mail finissant par ".fr" *@
         <label asp-for="Email" class="form-label">E-mail</label>
         <input type="text" asp-for="Email" class="form-control"></input>
-        @* <span asp-validation-for="Email"></span> *@
+        <span asp-validation-for="Email"></span>
     </div>
 
     <div class="row mt-3">
         <label asp-for="BirthDate" class="form-label">Date de naissance</label>
         <input type="date" asp-for="BirthDate" class="form-control"></input>
-        @* <span asp-validation-for="BirthDate"></span> *@
+        <span asp-validation-for="BirthDate"></span>
     </div>
 
     <div class="row mt-3">
         <label asp-for="IsAlive" class="form-label">Êtes-vous en vie ?</label>
         <input type="checkbox" asp-for="IsAlive" class="form-check"></input>
-        @* <span asp-validation-for="IsAlive"></span> *@
+        <span asp-validation-for="IsAlive"></span>
     </div>
 
-    @* <button type="submit" class="btn btn-primary">Envoyer</button> *@
-    <button type="button" class="btn btn-secondary">Retour</button>
-@* </form> *@
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>

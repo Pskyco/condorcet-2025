@@ -2,9 +2,9 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebApplication.RazorPages.Pages.MyForm;
+namespace WebApplication.RazorPages.Pages.Persons;
 
-public class Basic : PageModel
+public class Create : PageModel
 {
     [BindProperty] 
     public string FullName { get; set; }

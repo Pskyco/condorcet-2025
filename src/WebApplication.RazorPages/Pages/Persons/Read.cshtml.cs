@@ -1,10 +1,8 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace WebApplication.RazorPages.Pages.MyForm;
+namespace WebApplication.RazorPages.Pages.Persons;
 
-public class EditBasic : PageModel
+public class Read : PageModel
 {
     // [BindProperty] 
     public string FullName { get; set; }
@@ -19,10 +17,10 @@ public class EditBasic : PageModel
     // [BindProperty] 
     public bool IsAlive { get; set; }
 
-    // https://localhost:44368/MyForm/EditBasic/1
-    // https://localhost:44368/MyForm/EditBasic?id=1
-    // https://localhost:44368/MyForm/EditBasic?id=1&myId=65&email=john.doe@test.fr
-    // https://localhost:44368/MyForm/EditBasic/1?myId=65&email=john.doe@test.fr
+    // https://localhost:44368/MyForm/Update/1
+    // https://localhost:44368/MyForm/Update?id=1
+    // https://localhost:44368/MyForm/Update?id=1&myId=65&email=john.doe@test.fr
+    // https://localhost:44368/MyForm/Update/1?myId=65&email=john.doe@test.fr
     // public void OnGet(int id, int myId, string email)
     public void OnGet(int id)
     {
@@ -46,9 +44,9 @@ public class EditBasic : PageModel
 
     // public void OnGetAsync(string slug)
     // {
-    //     // https://localhost:44368/MyForm/EditBasic/salade-cesar
+    //     // https://localhost:44368/MyForm/Update/salade-cesar
     //     // slug: salade-cesar
-    //     // https://localhost:44368/MyForm/EditBasic/salade%20cesar
+    //     // https://localhost:44368/MyForm/Update/salade%20cesar
     //     // slug: salade cesar
     // }
 }

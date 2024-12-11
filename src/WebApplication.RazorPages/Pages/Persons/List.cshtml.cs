@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication.RazorPages.Models;
 
-namespace WebApplication.RazorPages.Pages.MyForm;
+namespace WebApplication.RazorPages.Pages.Persons;
 
-public class ListBasic : PageModel
+public class List : PageModel
 {
     public List<Person> Persons { get; set; }
 
@@ -29,5 +30,13 @@ public class ListBasic : PageModel
                 IsAlive = false
             },
         };
+    }
+    
+    // "Handler" of name "Delete"
+    public IActionResult OnGetDelete(int id)
+    {
+        // TODO: retrieve from database 'Person' with Id = id
+        Console.WriteLine($"Delete element of id : {id}");
+        return RedirectToPage("List");
     }
 }

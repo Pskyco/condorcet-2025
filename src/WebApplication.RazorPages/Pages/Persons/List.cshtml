@@ -1,6 +1,8 @@
 @page
 @using WebApplication.RazorPages.Models
-@model WebApplication.RazorPages.Pages.MyForm.ListBasic
+@model WebApplication.RazorPages.Pages.Persons.List
+
+<a class="btn btn-primary" asp-page="Create">Ajouter un nouvel élément</a>
 
 <table class="table">
     <thead>
@@ -37,7 +39,14 @@
                 }*@
                 <input class="form-check-input" type="checkbox" value="" disabled @(person.IsAlive ? "checked" : "")>
             </td>
-            <td>Edit/@person.Id</td>
+            <td>
+                @* <a class="btn btn-secondary" href="Read/@person.Id">Visualiser</a> *@
+                <a class="btn btn-secondary" asp-page="./Read" asp-route-id="@person.Id">Visualiser</a>
+                @* TODO : check why autocomplete doesn't work *@
+                @* <a class="btn btn-secondary" href="@Url.Page("./Read")/@person.Id">Visualiser</a> *@
+                @* <a class="btn btn-secondary" asp-page="./Read" asp-route-id="@person.Id" asp-route-myId="test" asp-route-email="">Visualiser</a> *@
+                <a class="btn btn-danger" asp-page-handler="Delete" asp-route-id="@person.Id">Supprimer</a>
+            </td>
         </tr>
         i++;
     }
