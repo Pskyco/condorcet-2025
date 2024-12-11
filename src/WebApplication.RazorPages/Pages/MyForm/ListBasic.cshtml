@@ -1,0 +1,45 @@
+@page
+@using WebApplication.RazorPages.Models
+@model WebApplication.RazorPages.Pages.MyForm.ListBasic
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nom et prénom</th>
+        <th scope="col">Adresse e-mail</th>
+        <th scope="col">Date de naissance</th>
+        <th scope="col">Est en vie ?</th>
+        <th scope="col">Action(s)</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+        int i = 1;
+    }
+    @foreach (Person person in Model.Persons)
+    {
+        <tr>
+            <th scope="row">@i</th>
+            <td>@person.FullName</td>
+            <td>@person.Email</td>
+            @* Output: DD/MM/YY *@
+            <td>@person.BirthDate.ToShortDateString()</td>
+            <td>
+                @*
+                @if (person.IsAlive)
+                {
+                    <input class="form-check-input" type="checkbox" value="" checked>
+                }
+                else
+                {
+                    <input class="form-check-input" type="checkbox" value="">
+                }*@
+                <input class="form-check-input" type="checkbox" value="" disabled @(person.IsAlive ? "checked" : "")>
+            </td>
+            <td>Edit/@person.Id</td>
+        </tr>
+        i++;
+    }
+    </tbody>
+</table>
