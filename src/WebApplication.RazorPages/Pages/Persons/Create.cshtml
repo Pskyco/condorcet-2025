@@ -1,4 +1,5 @@
 @page
+@using WebApplication.RazorPages.Models
 @model WebApplication.RazorPages.Pages.Persons.Create
 
 @section Scripts {
@@ -36,6 +37,25 @@
         <label asp-for="IsAlive" class="form-label">Êtes-vous en vie ?</label>
         <input type="checkbox" asp-for="IsAlive" class="form-check"></input>
         <span asp-validation-for="IsAlive"></span>
+    </div>
+
+    <div class="row mt-3">
+        <label asp-for="CivilStatus" class="form-label">Quel est votre statut civil ?</label>
+        <select class="form-select"
+                data-placeholder="Sélectionnez votre statut civil"
+                asp-for="CivilStatus"
+                asp-items="Html.GetEnumSelectList<CivilStatusEnum>()">
+            <option></option>
+        </select>
+    </div>
+
+    <div class="row mt-3">
+        <label asp-for="CivilStatus" class="form-label">Quelle est votre profession ?</label>
+        @Html.DropDownListFor(x => x.Job, Model.SliJobs, new
+        {
+            @class = "form-control",
+            title = "Sélectionner votre profession"
+        })
     </div>
 
     <button type="submit" class="btn btn-primary">Envoyer</button>
