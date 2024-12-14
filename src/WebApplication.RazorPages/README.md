@@ -33,7 +33,7 @@ Cheatsheet : https://github.com/rstropek/htl-csharp/blob/master/entity-framework
 
 #### Naming conventions
 
-Some people name their migration regarding the operations done on the database, eg: "I have created a 'Person' database, so my migration will be 'CreatePerson'".
+Some people name their migration regarding the operations done on the database, eg: "I have created a 'Person' table, so my migration will be 'CreatePerson'".
 
 In some cases, names can be very long, or not so accurate.
 
