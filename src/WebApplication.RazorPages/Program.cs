@@ -1,7 +1,11 @@
+using WebApplication.RazorPages.Persistence;
+
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSqlite<ApplicationDbContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
+// builder.Services.AddSqlServer<ApplicationDbContextSqlServer>(builder.Configuration.GetConnectionString("DefaultConnectionSqlServer"));
 
 var app = builder.Build();
 

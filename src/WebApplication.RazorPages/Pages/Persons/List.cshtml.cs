@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication.RazorPages.Models;
+using WebApplication.RazorPages.Persistence.Entities;
 
 namespace WebApplication.RazorPages.Pages.Persons;
 

@@ -1,4 +1,4 @@
-namespace WebApplication.RazorPages.Models;
+namespace WebApplication.RazorPages.Persistence.Entities;
 
 public class Person
 {
