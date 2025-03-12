@@ -50,8 +50,8 @@
     </div>
 
     <div class="row mt-3">
-        <label asp-for="CivilStatus" class="form-label">Quelle est votre profession ?</label>
-        @Html.DropDownListFor(x => x.Job, Model.SliJobs, new
+        <label asp-for="JobId" class="form-label">Quelle est votre profession ?</label>
+        @Html.DropDownListFor(x => x.JobId, Model.SliJobs, new
         {
             @class = "form-control",
             title = "Sélectionner votre profession"

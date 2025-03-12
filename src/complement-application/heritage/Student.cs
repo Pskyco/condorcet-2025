@@ -2,8 +2,8 @@ namespace heritage;
 
 public class Student : Person
 {
-    public string CurrentClass { get; set; }
-    public string CurrentYear { get; set; }
+    public string CurrentClass { get; private set; }
+    public string CurrentYear { get; private set; }
 
     public Student(string firstName, string lastName, string currentClass, string currentYear) 
         : base(firstName, lastName)
@@ -11,6 +11,12 @@ public class Student : Person
         CurrentClass = currentClass;
         CurrentYear = currentYear;
     }
+
+    // public void MoveClass(string nextClass, string nextYear)
+    // {
+    //     CurrentClass = nextClass;
+    //     CurrentYear = nextYear;
+    // }
 
     public override string GetAbstractDescription()
     {

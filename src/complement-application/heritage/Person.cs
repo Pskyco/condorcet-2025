@@ -1,6 +1,6 @@
 namespace heritage;
 
-public abstract class Person
+public abstract class Person : Object
 {
     public string LastName { get; private set; }
     public string FirstName { get; private set; }

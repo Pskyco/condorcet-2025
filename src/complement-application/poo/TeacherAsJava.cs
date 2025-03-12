@@ -2,22 +2,24 @@ namespace poo;
 
 public class TeacherAsJava
 {
-    private string _firstName;
+    private string _nationalNumber;
 
-    public string FirstName
+    public string NationalNumber
     {
-        get { return GetFirstName(); }
-        set { SetFirstName(value); }
+        get { return _nationalNumber; }
+        private set { _nationalNumber = value; }
     }
 
-    private void SetFirstName(string value)
+    public void SetNationalNumber(string value)
     {
-        _firstName = value;
+        if (value.Length != 11) // YY MM DD 123 86
+            throw new Exception("National number must be 11 char long");
+        _nationalNumber = value;
     }
 
-    private string GetFirstName()
+    public string GetFirstName()
     {
-        return _firstName;
+        return _nationalNumber;
     }
 
     public TeacherAsJava()
