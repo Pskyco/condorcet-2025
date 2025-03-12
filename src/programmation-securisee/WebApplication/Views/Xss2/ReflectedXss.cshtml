@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "XSS Reflété";
+}
+
+<div class="container">
+    <h2 class="my-4">XSS Reflété - @ViewBag.MethodeUtilisee</h2>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Entrée utilisateur</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="mb-3">
+                <div class="mb-3">
+                    <label for="userName" class="form-label">Votre nom</label>
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Entrez votre nom...">
+                    <div class="form-text">Essayez d'entrer un script comme: &lt;script&gt;alert('XSS')&lt;/script&gt;</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Soumettre</button>
+            </form>
+        </div>
+    </div>
+    
+    @if (!string.IsNullOrEmpty(ViewBag.UserName))
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Résultat</h5>
+            </div>
+            <div class="card-body">
+                <p>Bonjour, <span id="userName-output">@Html.Raw(ViewBag.UserName)</span>!</p>
+                
+                <div class="alert alert-info mt-3">
+                    <h5>Explication:</h5>
+                    <p>La valeur affichée ci-dessus est injectée dans la page en utilisant <code>Html.Raw()</code>, ce qui désactive l'encodage HTML automatique.</p>
+                    <p>En mode vulnérable, le texte est affiché tel quel, permettant l'exécution de scripts.</p>
+                    <p>En mode sécurisé, le texte est d'abord encodé avec <code>HtmlEncoder.Default.Encode()</code>, neutralisant les caractères spéciaux HTML.</p>
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-secondary">Retour à la page d'accueil</a>
+    </div>
+</div>

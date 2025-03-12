@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col">
+            <a asp-controller="Xss" asp-action="Index">
+                <button type="button" class="btn btn-primary btn-lg btn-block mt-1">XSS injection UC n°1 (CWE-79)</button>
+            </a>
+        </div>
+        <div class="col">
+            <a asp-controller="Xss" asp-action="UnsafeJs">
+                <button type="button" class="btn btn-primary btn-lg btn-block mt-1">XSS injection UC n°2 (CWE-79)</button>
+            </a>
+        </div>
+    </div>
+
+    <a asp-controller="Account" asp-action="Index">
+        <button type="button" class="btn btn-warning btn-lg btn-block mt-1">SQL injections (CWE-89)</button>
+    </a>
+
+    <a asp-controller="Cors" asp-action="Index">
+        <button type="button" class="btn btn-info btn-lg btn-block mt-1">CORS Security</button>
+    </a>
+
+    <a asp-controller="Roles" asp-action="Index">
+        <button type="button" class="btn btn-danger btn-lg btn-block mt-1">Role-based authorization</button>
+    </a>
+
+    <hr/>
+
+    <div class="alert alert-warning">
+        This image won't be displayed until you adapt the CSP <strong>img-src</strong> in the <strong>SecurityHeaderMiddleware</strong>, like <code>"img-src 'self' cdn.pixabay.com;"</code>
+    </div>
+
+    <figure class="figure">
+        <img src="https://cdn.pixabay.com/photo/2021/12/04/10/58/nature-6844982_960_720.jpg" class="figure-img img-fluid rounded" alt="Random image stored on the internet.">
+        <figcaption class="figure-caption text-right">A random image stored on the interne, not visible because CSP are on 'self'</figcaption>
+    </figure>
+
+    <br/>
+
+    <figure class="figure">
+        <img src="images/example.jpg" class="figure-img img-fluid rounded" alt="Random image stored on the website.">
+        <figcaption class="figure-caption text-right">A random image stored on the website, visible because CSP are on 'self'</figcaption>
+    </figure>
+</div>

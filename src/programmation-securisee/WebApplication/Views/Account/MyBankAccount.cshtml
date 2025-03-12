@@ -1,0 +1,8 @@
+@model List<WebApplication.Data.Entities.Account>
+
+<ul class="list-group">
+    @foreach (var account in Model)
+    {
+        <li class="list-group-item">@account</li>
+    }
+</ul>

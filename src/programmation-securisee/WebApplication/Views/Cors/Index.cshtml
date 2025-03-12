@@ -1,0 +1,22 @@
+@using AngleSharp.Io
+@{
+    var apiUrl = "https://localhost:5897/";
+}
+
+<div class="alert alert-success">
+    <span id="success">Les résultats de la requête, si réalisée avec succès, s'afficheront ici.</span>
+</div>
+
+<div class="text-center">
+    <p>L'url de votre CORSApi est la suivante : <code>@apiUrl</code></p>
+    <button type="button" data-host="@apiUrl" data-uri="api/values" data-http-method="@HttpMethod.Get" class="btn api-button btn-primary mb-2">GET api/values</button>
+    <button type="button" data-host="@apiUrl" data-uri="api/values/1" data-http-method="@HttpMethod.Get" class="btn api-button btn-primary mb-2">GET api/values/1</button>
+    <button type="button" data-host="@apiUrl" data-uri="api/values/3" data-http-method="@HttpMethod.Put" class="btn api-button btn-primary mb-2">PUT api/values/3</button>
+    <button type="button" data-host="@apiUrl" data-uri="api/values/GetValues2" data-http-method="@HttpMethod.Get" class="btn api-button btn-primary mb-2">GET api/values/GetValues2</button>
+</div>
+
+<div class="alert alert-danger">
+    <span id="error">Les erreurs, si présentes, s'afficheront ici.</span>
+</div>
+
+<script src="js/site.js" nws-csp-add-nonce="true"></script>

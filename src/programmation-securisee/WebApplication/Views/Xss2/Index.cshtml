@@ -1,0 +1,107 @@
+@{
+ViewData["Title"] = "Démo Cross-Site Scripting (CWE-79)";
+}
+
+<div class="container">
+    <h1 class="my-4">Laboratoire : Cross-Site Scripting (CWE-79) en ASP.NET MVC</h1>
+
+    <div class="alert alert-warning">
+        <h4 class="alert-heading">À propos de cette démonstration</h4>
+        <p>Cette application démontre les vulnérabilités de Cross-Site Scripting (XSS) dans un environnement ASP.NET MVC et les techniques pour les prévenir.</p>
+        <hr>
+        <p class="mb-0">Essayez d'injecter des scripts comme <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code> dans les différentes parties de l'application pour observer le comportement.</p>
+    </div></div>
+
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <div class="card border-danger mb-4">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Exemples Vulnérables</h5>
+                </div>
+                <div class="card-body">
+                    <p>Ces exemples démontrent des cas où une application est vulnérable aux attaques XSS.</p>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item">
+                            <a asp-action="ReflectedVulnerable" class="text-danger">XSS Reflété (Vulnérable)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="ViewCommentsVulnerable" class="text-danger">XSS Stocké (Vulnérable)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="DomBasedXss" class="text-danger">XSS basé sur le DOM</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="UnsafeHtmlVulnerable" class="text-danger">Contenu HTML non sécurisé</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card border-success mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Exemples Sécurisés</h5>
+                </div>
+                <div class="card-body">
+                    <p>Ces exemples démontrent des techniques pour prévenir les attaques XSS.</p>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item">
+                            <a asp-action="ReflectedSecured" class="text-success">XSS Reflété (Sécurisé)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="ViewCommentsSecured" class="text-success">XSS Stocké (Sécurisé)</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="UnsafeHtmlSecured" class="text-success">Contenu HTML purifié</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a asp-action="CspDemo" class="text-success">Content Security Policy (CSP)</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Payloads XSS à tester</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                        <tr>
+                            <th>Payload</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></td>
+                            <td>Script JavaScript de base qui affiche une alerte</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;img src="x" onerror="alert('XSS')"&gt;</code></td>
+                            <td>Exploitation utilisant l'événement onerror d'une image</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;div onmouseover="alert('XSS')"&gt;Passez la souris ici&lt;/div&gt;</code></td>
+                            <td>Exécution au survol de la souris</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;iframe src="javascript:alert('XSS');"&gt;&lt;/iframe&gt;</code></td>
+                            <td>Injection d'iframe avec JavaScript</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;a href="javascript:alert('XSS')"&gt;Cliquez ici&lt;/a&gt;</code></td>
+                            <td>Lien avec protocole JavaScript</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,75 @@
+@{
+    ViewData["Title"] = "XSS basé sur le DOM";
+}
+
+<div class="container">
+    <h2 class="my-4">XSS basé sur le DOM</h2>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Démonstration</h5>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="userInput" class="form-label">Entrez du texte:</label>
+                <input type="text" class="form-control" id="userInput" placeholder="Entrez du texte...">
+                <div class="form-text">Essayez d'entrer un script comme: &lt;img src=x onerror=alert('XSS DOM')&gt;</div>
+            </div>
+            <button id="displayButton" class="btn btn-primary">Afficher</button>
+            
+            <div class="mt-4">
+                <h5>Résultat:</h5>
+                <div id="output" class="p-3 border rounded"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="alert alert-info mb-4">
+        <h5>Explication:</h5>
+        <p>Le XSS basé sur le DOM se produit lorsque du JavaScript côté client manipule le DOM de manière non sécurisée.</p>
+        <p>Dans cet exemple:</p>
+        <ul>
+            <li>Le code JavaScript utilise <code>innerHTML</code> pour insérer du contenu dans le DOM</li>
+            <li>Cette approche est vulnérable car elle permet l'exécution de scripts</li>
+            <li>Une approche sécurisée utiliserait <code>textContent</code> ou créerait des éléments DOM de manière programmatique</li>
+        </ul>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Version Sécurisée</h5>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="userInputSecure" class="form-label">Entrez du texte:</label>
+                <input type="text" class="form-control" id="userInputSecure" placeholder="Entrez du texte...">
+            </div>
+            <button id="displayButtonSecure" class="btn btn-success">Afficher (Sécurisé)</button>
+            
+            <div class="mt-4">
+                <h5>Résultat:</h5>
+                <div id="outputSecure" class="p-3 border rounded"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-secondary">Retour à la page d'accueil</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Version vulnérable - Utilise innerHTML
+        document.getElementById('displayButton').addEventListener('click', function() {
+            const userInput = document.getElementById('userInput').value;
+            document.getElementById('output').innerHTML = userInput;
+        });
+        
+        // Version sécurisée - Utilise textContent
+        document.getElementById('displayButtonSecure').addEventListener('click', function() {
+            const userInput = document.getElementById('userInputSecure').value;
+            document.getElementById('outputSecure').textContent = userInput;
+        });
+    </script>
+}

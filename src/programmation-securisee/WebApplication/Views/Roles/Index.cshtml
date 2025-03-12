@@ -1,0 +1,66 @@
+@using Newtonsoft.Json
+@using System.Security.Claims
+
+<div class="alert alert-info">
+    Plusieurs utilisateurs ont été seedés. Vous trouverez le mot de passe dans le fichier <code>Startup.cs</code>.<br/><br/>
+    <ul>
+        <li>management@domain.be (rôle: Management)</li>
+        <li>hr@domain.be (rôle: HR)</li>
+        <li>hr_management@domain.be (rôles: HR et Management)</li>
+        <li>finance@domain.be (rôle: Finance)</li>
+    </ul>
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="alert alert-success">
+        <p>Bonjour @User.Identity.Name ! Vous êtes dans les rôles suivants : @string.Join(", ", User.Claims.Where(z => z.Type == ClaimTypes.Role).Select(z => z.Value))</p>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        <p>Vous n'êtes pas encore connecté.</p>
+    </div>
+}
+
+<p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Visualiser les claims
+    </button>
+</p>
+
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        <pre>
+            @JsonConvert.SerializeObject(User.Claims, Formatting.Indented, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            })
+        </pre>
+    </div>
+</div>
+
+<ul class="list">
+    <li class="list-item">
+        <a asp-controller="SingleRole" asp-action="Index">Autorisé uniquement pour le rôle <code>Management</code></a>
+    </li>
+    <li class="list-item">
+        <a asp-controller="SingleRole" asp-action="IndexAnonymous">Autorisé pour tous les utilisateurs, même non connectés (<code>AllowAnonymous</code>)</a>
+    </li>
+    <li class="list-item">
+        <a asp-controller="OneOfRole" asp-action="Index">Autorisé pour l'un des rôles : <code>Management ou HR</code></a>
+    </li>
+    <li class="list-item">
+        <a asp-controller="OneOfRole" asp-action="Index2">Autorisé pour les rôles : <code>Management</code> (surcharge les valeurs par default)</a>
+    </li>
+    <li class="list-item">
+        <a asp-controller="AllOfRoles" asp-action="Index">Autorisé pour les utilisateurs avec les rôles <code>HR et Management</code></a>
+    </li>
+    <li class="list-item">
+        <a asp-controller="Salary" asp-action="SalaryR">Vérification du droit <code>SalaryR</code> (Les rôles <code>Management, HR, Finance</code> ont ce droit)</a>
+    </li>
+    <li class="list-item">
+        <a asp-controller="Salary" asp-action="SalaryW">Vérification du droit <code>SalaryW</code> (Les rôles <code>Management, HR</code> ont ce droit)</a>
+    </li>
+</ul>

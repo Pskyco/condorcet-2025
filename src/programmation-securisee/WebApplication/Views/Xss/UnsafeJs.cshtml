@@ -1,0 +1,54 @@
+@using System.Text.Encodings.Web
+@model User
+
+@inject JavaScriptEncoder _javaScriptEncoder
+
+<div class="alert alert-warning">
+    <p>Cliquez <a href="https://localhost:5001/XSS/UnsafeJs?userId=965%27);alert(%27You%20got%20attacked%27);//">sur cette URL</a>, ensuite entrez un nom d'utilisateur dans l'un des inputs suivants et cliquez sur 'Envoyer'.</p>
+    <p>L'url cachée derrière ce bouton est la suivante, <code>https://localhost:5001/XSS/UnsafeJs?userId=965%27);alert(%27You%20got%20attacked%27);//</code></p>
+    <p>Elle vous redirige vers cette page, mais en indiquant en plus la partie <code>%27);alert(%27You%20got%20attacked%27);//</code>, qui vous affichera une popup.</p>
+    <p>Le code malicieux qui s'y glisse pourrait très bien être un script JS qui s'exécuterait sur votre poste.</p>
+</div>
+
+<h2>Not safe Javascript</h2>
+<div class="alert alert-danger">
+    Ce code javascript n'est pas safe. En cliquant sur le lien ci-dessus et en entrant votre nom d'utilisateur, deux popup s'afficheront : celle qui est reprise dans le code du bouton, et le code malicieux qui s'est glissé dans l'URL sur laquelle vous avez cliqué.
+</div>
+<form asp-action="UnsafeJs">
+    <div class="form-group">
+        <label for="Username">Veuillez entrer votre nom d'utilisateur</label>
+        <input type="text" class="form-control" name="Username" placeholder="nom d'utilisateur...">
+    </div>
+    <button type="submit" class="mt-md-1 btn btn-primary" onclick="alert('Saving user name for account with id: @Context.Request.Query["userId"]');">
+        Envoyer (unsafe)
+    </button>
+</form>
+<br/>
+<h2>Safe Javascript n°1</h2>
+<form asp-action="UnsafeJs">
+    <div class="form-group">
+        <label for="Username">Veuillez entrer votre nom d'utilisateur</label>
+        <input type="text" class="form-control" name="Username" placeholder="nom d'utilisateur...">
+    </div>
+    <button type="submit" class="mt-md-1 btn btn-primary"
+            onclick="alert(`Saving user name for account with id: @Context.Request.Query["userId"]`);">
+        Envoyer (safe n°1)
+    </button>
+</form>
+<br/>
+<h2>Safe Javascript n°2</h2>
+<form asp-action="UnsafeJs">
+    <div class="form-group">
+        <label for="Username">Veuillez entrer votre nom d'utilisateur</label>
+        <input type="text" class="form-control" name="Username" placeholder="nom d'utilisateur...">
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Context.Request.Query["userId"]))
+    {
+        <button
+            type="submit"
+            class="mt-md-1 btn btn-primary"
+            onclick="alert('Saving user name for account with id: @_javaScriptEncoder.Encode(Context.Request.Query["userId"])');">
+            Envoyer (safe n°2)
+        </button>
+    }
+</form>

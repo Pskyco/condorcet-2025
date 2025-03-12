@@ -1,0 +1,135 @@
+<!-- Fichier: Views/Xss/CspDemo.cshtml -->
+@{
+ViewData["Title"] = "Content Security Policy (CSP)";
+}
+
+<div class="container">
+    <h2 class="my-4">Content Security Policy (CSP)</h2>
+
+    <div class="alert alert-success mb-4">
+        <h5 class="alert-heading">Sécurité renforcée!</h5>
+        <p>Cette page utilise une politique de sécurité de contenu (CSP) pour se protéger contre les attaques XSS.</p>
+        <p>Examinez l'en-tête HTTP <code>Content-Security-Policy</code> dans les outils développeur (F12) pour voir la politique appliquée.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Script inline (bloqué par CSP)</h5>
+                </div>
+                <div class="card-body">
+                    <p>Tentative d'exécution d'un script inline:</p>
+                    <button id="testInlineButton" class="btn btn-primary">Cliquez-moi</button>
+
+                    <div class="mt-3">
+                        <h6>Code HTML:</h6>
+                        <pre><code>&lt;button onclick="alert('Ceci ne fonctionnera pas avec CSP')"&gt;
+  Cliquez-moi
+&lt;/button&gt;</code></pre>
+                    </div>
+
+                    <div class="mt-3">
+                        <p>Résultat dans la console:</p>
+                        <div class="border p-2 bg-light">
+                            <code>Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self' https://cdn.jsdelivr.net"...</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Script externe (autorisé par CSP)</h5>
+                </div>
+                <div class="card-body">
+                    <p>Tentative d'exécution d'un script depuis une source autorisée:</p>
+                    <button id="testExternalButton" class="btn btn-success">Cliquez-moi</button>
+
+                    <div class="mt-3">
+                        <p>Ce bouton utilise un gestionnaire d'événement ajouté par un script externe autorisé par la politique CSP.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Source externe non autorisée (bloquée par CSP)</h5>
+                </div>
+                <div class="card-body">
+                    <p>Tentative de chargement d'un script depuis une source non autorisée:</p>
+                    <div id="unauthorizedScriptResult" class="border p-2 bg-light">
+                        <code>Refused to load the script 'https://example.com/script.js' because it violates the following Content Security Policy directive: "script-src 'self' https://cdn.jsdelivr.net"...</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Comment implémenter CSP</h5>
+        </div>
+        <div class="card-body">
+            <p>Dans ASP.NET Core, vous pouvez implémenter CSP de plusieurs façons:</p>
+
+            <h6>1. Middleware personnalisé (comme dans cet exemple):</h6>
+            <pre><code>app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add(
+        "Content-Security-Policy",
+        "default-src 'self'; " +
+        "script-src 'self' https://cdn.jsdelivr.net; " +
+        "style-src 'self' https://cdn.jsdelivr.net");
+        
+    await next();
+});</code></pre>
+
+            <h6>2. NWebsec NuGet package:</h6>
+            <pre><code>// Dans Program.cs
+services.AddHsts(options =>
+{
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(365);
+});
+
+// Dans le middleware
+app.UseXContentTypeOptions();
+app.UseReferrerPolicy(opts => opts.NoReferrer());
+app.UseXXssProtection(options => options.EnabledWithBlockMode());
+app.UseXfo(options => options.Deny());
+
+app.UseCsp(opts => opts
+    .DefaultSources(s => s.Self())
+    .ScriptSources(s => s.Self().CustomSources("https://cdn.jsdelivr.net"))
+    .StyleSources(s => s.Self().CustomSources("https://cdn.jsdelivr.net"))
+);</code></pre>
+
+            <h6>3. Attribut sur le contrôleur ou l'action:</h6>
+            <pre><code>[CspAttribute]
+public IActionResult Index()
+{
+    return View();
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-secondary">Retour à la page d'accueil</a>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // Ce script sera exécuté car il est chargé depuis la source 'self' autorisée
+    document.getElementById('testExternalButton').addEventListener('click', function() {
+        alert('Ce script est autorisé car il est chargé depuis une source approuvée par CSP');
+    });
+
+    // Simulation d'une tentative de chargement d'un script non autorisé
+    // Dans un vrai scénario, ce script serait bloqué par le navigateur
+    document.getElementById('testInlineButton').setAttribute('onclick', "alert('Ceci ne fonctionnera pas avec CSP')");
+</script>
+}

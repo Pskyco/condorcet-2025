@@ -1,0 +1,98 @@
+@model IEnumerable<Comment>
+@{
+    ViewData["Title"] = "XSS Stocké";
+}
+
+<div class="container">
+    <h2 class="my-4">XSS Stocké - @ViewBag.MethodeUtilisee</h2>
+    
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Ajouter un commentaire</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="@(ViewBag.IsSecured ? "StoreCommentSecured" : "StoreCommentVulnerable")">
+                        <div class="mb-3">
+                            <label for="author" class="form-label">Votre nom</label>
+                            <input type="text" class="form-control" id="author" name="author" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Commentaire</label>
+                            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                            <div class="form-text">Essayez d'entrer un script comme: &lt;script&gt;alert('XSS Stocké')&lt;/script&gt;</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Publier</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-7">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Commentaires (@Model.Count())</h5>
+                </div>
+                <div class="card-body">
+                    @if (!Model.Any())
+                    {
+                        <p class="text-muted">Aucun commentaire pour le moment.</p>
+                    }
+                    else
+                    {
+                        <div class="list-group">
+                            @foreach (var comment in Model)
+                            {
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">
+                                            @if (ViewBag.IsSecured)
+                                            {
+                                                @comment.Author
+                                            }
+                                            else
+                                            {
+                                                @Html.Raw(comment.Author)
+                                            }
+                                        </h5>
+                                        <small>@comment.CreatedAt.ToString("dd/MM/yyyy HH:mm")</small>
+                                    </div>
+                                    <p class="mb-1">
+                                        @if (ViewBag.IsSecured)
+                                        {
+                                            @comment.Content
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(comment.Content)
+                                        }
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="alert alert-info mb-4">
+        <h5>Explication:</h5>
+        <p>Le XSS stocké est particulièrement dangereux car le code malveillant est sauvegardé en base de données et affecte tous les utilisateurs qui visitent la page.</p>
+        <p>En mode vulnérable:</p>
+        <ul>
+            <li>Les données sont stockées telles quelles dans la base de données</li>
+            <li>Les données sont affichées avec <code>Html.Raw()</code> sans encodage</li>
+        </ul>
+        <p>En mode sécurisé:</p>
+        <ul>
+            <li>Les données sont encodées avec <code>HtmlEncoder.Default.Encode()</code> avant stockage</li>
+            <li>Razor encode automatiquement les données lors de l'affichage (double protection)</li>
+        </ul>
+    </div>
+    
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-secondary">Retour à la page d'accueil</a>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+<!-- Fichier: Views/Xss/UnsafeHtml.cshtml -->
+@{
+    ViewData["Title"] = "Contenu HTML";
+}
+
+<div class="container">
+    <h2 class="my-4">@ViewBag.MethodeUtilisee</h2>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Entrée HTML</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="mb-3">
+                <div class="mb-3">
+                    <label for="htmlContent" class="form-label">Entrez du contenu HTML</label>
+                    <textarea class="form-control" id="htmlContent" name="htmlContent" rows="5" placeholder="<h1>Titre</h1><p>Contenu...</p>"></textarea>
+                    <div class="form-text">
+                        Essayez d'entrer du HTML légitime, puis tentez d'injecter des scripts comme:<br>
+                        <code>&lt;div&gt;Texte normal&lt;/div&gt;&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Prévisualiser</button>
+            </form>
+        </div>
+    </div>
+    
+    @if (ViewBag.HtmlContent != null)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Prévisualisation HTML</h5>
+            </div>
+            <div class="card-body">
+                <div class="border p-3 bg-light">
+                    @ViewBag.HtmlContent
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div class="alert alert-info mb-4">
+        <h5>Explication:</h5>
+        <p>Cette démonstration montre comment le contenu HTML riche peut être vulnérable aux attaques XSS:</p>
+        <p>En mode vulnérable:</p>
+        <ul>
+            <li>Le HTML est rendu directement avec <code>new HtmlString(htmlContent)</code> sans aucune validation</li>
+            <li>Cela permet l'injection de scripts malveillants et d'autres contenus dangereux</li>
+        </ul>
+        <p>En mode sécurisé:</p>
+        <ul>
+            <li>Le HTML est purifié à l'aide d'une bibliothèque de sanitization qui supprime les éléments dangereux</li>
+            <li>Seul le HTML bénin est conservé, tandis que les scripts et les balises dangereuses sont supprimés</li>
+            <li>Dans un environnement de production, utilisez une bibliothèque comme HtmlSanitizer, AngleSharp ou Microsoft.Security.Application.Encoder</li>
+        </ul>
+    </div>
+    
+    <div class="mb-4">
+        <a asp-action="Index" class="btn btn-secondary">Retour à la page d'accueil</a>
+    </div>
+</div>

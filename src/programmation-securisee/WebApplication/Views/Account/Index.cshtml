@@ -1,0 +1,65 @@
+<div class="alert alert-warning">
+    Pour expérimenter l'injection SQL, veuillez entrer ce snippet dans l'un des input suivants: <code>1' OR 'ok'='ok</code>
+    3 comptes ont été seedés dans la base de données utilisée, les identifiants sont les suivants : 1, 2, 3.
+</div>
+
+<hr>
+
+<div>
+    <strong>Données de test:</strong>
+    <ul>
+        <li>Account n° 123456789 (#1) with balance of 2489,5€</li>
+        <li>Account n° 987654321 (#2) with balance of 65978,2€</li>
+        <li>Account n° 01020304 (#3) with balance of 123256,1€</li>
+    </ul>
+</div>
+
+<hr>
+
+<form class="form-inline" asp-action="MyBankAccountUnsafe">
+    <h3>Not safe (FromSqlRaw)</h3>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" name="id" class="form-control" placeholder="bank account identifier"></input>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Get my account</button>
+</form>
+
+<div class="alert alert-danger">
+    Cette manière de faire est celle qui vous expose à l'injection SQL. Aucune vérification de l'entrée n'est effectuée. En indiquant le snippet ci-dessus, vous récupérez en réalité toute la base de données.
+</div>
+
+<form class="form-inline" asp-action="MyBankAccountSafe">
+    <h3>Safe (int-typed)</h3>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" name="id" class="form-control" placeholder="bank account identifier"></input>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Get my account</button>
+</form>
+
+<div class="alert alert-success">
+    Cette méthode est la plus safe, car vous attendez en paramètre un nombre entier. Votre entrée est donc automatiquement parsée comme telle.
+</div>
+
+<form class="form-inline" asp-action="MyBankAccountSafeStringEf">
+    <h3>Safe (string-typed)</h3>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" name="id" class="form-control" placeholder="bank account identifier"></input>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Get my account</button>
+</form>
+
+<div class="alert alert-success">
+    Cette méthode est également safe. Ici, Entity Framework vous fait savoir que vous essayez de récupérer un compte avec une clé primaire en string, sauf qu'elle est flaguée en tant que int dans votre base de données.
+</div>
+
+<form class="form-inline" asp-action="MyBankAccountSafeStringEfInterpolated">
+    <h3>Safe (string-typed + FromSqlInterpolated)</h3>
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" name="id" class="form-control" placeholder="bank account identifier"></input>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Get my account</button>
+</form>
+
+<div class="alert alert-success">
+    Cette méthode est également safe. Entity Framework s'assure d'échapper entièrement la chaîne de caractère.
+</div>

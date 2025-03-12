@@ -1,0 +1,41 @@
+@model User
+@{
+    var js = "<script>alert(\"test\");</script>";
+}
+
+<div class="alert alert-warning">
+    Entrez ce snippet pour tester l'injection XSS: <code>@js</code>. Pensez à bien désactiver les CSP sans quoi la démonstration ne fonctionnera pas.
+</div>
+
+<form class="form-inline" asp-action="Index">
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" asp-for="Username" class="form-control" placeholder="username"></input>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Envoyer</button>
+</form>
+
+<form class="form-inline" asp-action="IndexSanitized">
+    <div class="form-group mx-sm-3 mb-2">
+        <input type="text" asp-for="Username" class="form-control" placeholder="username"></input>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Envoyer avec sanitizer</button>
+</form>
+
+@if (Model != null)
+{
+    if (!string.IsNullOrWhiteSpace(Model.Username))
+    {
+        <div class="alert alert-danger mt-2">
+            <p>Méthode not safe. Le code HTML apparaît, et est 'rendered', puisque vous avez reçu la popup de l'alert : @Html.Raw(Model.Username)</p>
+        </div>
+        <div class="alert alert-success mt-2">
+            <p>Méthode safe. Le code HTML apparaît, mais en texte brut et n'est pas 'rendered' : @Model.Username</p>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info mt-2">
+            <p>L'entrée reçue est vide. Soit vous n'avez pas encore cliqué sur le bouton, soit vous avez utilisé le sanitizer, c'est que votre entrée a été nettoyée.</p>
+        </div>
+    }
+}
