@@ -13,7 +13,7 @@
             <div class="mb-3">
                 <label for="userInput" class="form-label">Entrez du texte:</label>
                 <input type="text" class="form-control" id="userInput" placeholder="Entrez du texte...">
-                <div class="form-text">Essayez d'entrer un script comme: &lt;img src=x onerror=alert('XSS DOM')&gt;</div>
+                <div class="form-text">Essayez d'entrer un script comme: &lt;img src="x" onerror="alert('XSS DOM')"&gt;</div>
             </div>
             <button id="displayButton" class="btn btn-primary">Afficher</button>
             

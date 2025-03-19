@@ -1,0 +1,22 @@
+OWASP NodeGoat : https://github.com/OWASP/NodeGoat
+
+Application Node.js avec des vulnérabilités de l'OWASP Top 10
+Idéal pour démontrer les vulnérabilités web
+
+
+OWASP WebGoat : https://github.com/WebGoat/WebGoat
+
+Application Java avec diverses vulnérabilités
+Bon pour montrer les problèmes de sécurité Java
+
+
+Juice Shop : https://github.com/juice-shop/juice-shop
+
+Application moderne (Node.js/Angular) avec de nombreuses vulnérabilités
+Excellent pour les démos car visuellement attractif
+
+
+VulnerableCodeJava : https://github.com/h3xstream/vulnerable-java-webapp
+
+Application Java simple avec des vulnérabilités connues
+Plus léger, parfait pour des démos rapides

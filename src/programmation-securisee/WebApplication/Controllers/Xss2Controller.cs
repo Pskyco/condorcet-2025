@@ -27,7 +27,7 @@ namespace WebApplication.Controllers
 
         // VULNÉRABLE: XSS Reflété sans encodage
         [HttpGet]
-        public IActionResult ReflectedVulnerable(string userName)
+        public IActionResult ReflectedVulnerable(string userName) // userName : Michel<script>...
         {
             // Stocke le nom d'utilisateur non encodé dans ViewBag
             ViewBag.UserName = userName;
