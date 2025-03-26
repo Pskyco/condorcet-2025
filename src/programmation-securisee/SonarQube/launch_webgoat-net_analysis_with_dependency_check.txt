@@ -1,0 +1,24 @@
+# 1. Créer les volumes
+docker volume create webgoat-dotnet
+docker volume create dependency-check-reports
+
+# 2. Cloner le dépôt
+docker run --rm -v webgoat-dotnet:/code alpine/git clone https://github.com/OWASP/WebGoat.NET.git /code
+
+# 3. Exécuter Dependency-Check
+docker run --rm -v webgoat-dotnet:/src -v dependency-check-reports:/report owasp/dependency-check:latest --scan /src --format "ALL" --out /report
+
+# 4. Exécuter SonarQube Scanner
+docker run --rm `
+  -e SONAR_HOST_URL="http://host.docker.internal:9000" `
+  -e SONAR_TOKEN="sqp_2e4e20818942bb0999ffb78885428d74be12b358" `
+  -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=webgoatnet `
+    -Dsonar.projectName=webgoatnet `
+    -Dsonar.sources=. `
+    -Dsonar.dependencyCheck.htmlReportPath=/report/dependency-check-report.html `
+    -Dsonar.dependencyCheck.jsonReportPath=/report/dependency-check-report.json `
+    -Dsonar.dependencyCheck.xmlReportPath=/report/dependency-check-report.xml" `
+  -v webgoat-dotnet:/usr/src `
+  -v dependency-check-reports:/report `
+  -w /usr/src `
+  sonarsource/sonar-scanner-cli

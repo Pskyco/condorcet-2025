@@ -1,0 +1,8 @@
+# 1. Créer le volume
+docker volume create nodegoat-code
+
+# 2. Cloner le dépôt dans le volume
+docker run --rm -v nodegoat-code:/code alpine/git clone https://github.com/OWASP/NodeGoat.git /code
+
+# 3. Analyser le repostiroy
+docker run --rm -e SONAR_HOST_URL="http://host.docker.internal:9000" -e SONAR_TOKEN="sqp_52db11f6a6aafe497f41093d5adcd55d06fef780" -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=node-goat -Dsonar.projectName=node-goat -Dsonar.sources=." -v nodegoat-code:/usr/src -w /usr/src sonarsource/sonar-scanner-cli

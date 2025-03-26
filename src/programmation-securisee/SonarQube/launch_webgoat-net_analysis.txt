@@ -1,0 +1,8 @@
+# 1. Créer le volume
+docker volume create webgoatnet-code
+
+# 2. Cloner le dépôt dans le volume
+docker run --rm -v webgoatnet-code:/code alpine/git clone https://github.com/OWASP/WebGoat.NET /code
+
+# 3. Analyser le repostiroy
+docker run --rm -e SONAR_HOST_URL="http://host.docker.internal:9000" -e SONAR_TOKEN="sqp_7f616a8cc83939aac98063cf9570376eb21095e7" -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=webgoatnet -Dsonar.projectName=webgoatnet -Dsonar.sources=." -v webgoatnet-code:/usr/src -w /usr/src sonarsource/sonar-scanner-cli

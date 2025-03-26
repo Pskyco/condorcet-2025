@@ -1,0 +1,8 @@
+# 1. Créer le volume
+docker volume create webgoat-code
+
+# 2. Cloner le dépôt dans le volume
+docker run --rm -v webgoat-code:/code alpine/git clone https://github.com/WebGoat/WebGoat /code
+
+# 3. Analyser le repostiroy
+docker run --rm -e SONAR_HOST_URL="http://host.docker.internal:9000" -e SONAR_TOKEN="sqp_86f27807840508451324a777bcf7881323bfc612" -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=web-goat -Dsonar.projectName=node-goat -Dsonar.sources=. -Dsonar.exclusions=**/*.java,**/*.properties,**/test/**" -v webgoat-code:/usr/src -w /usr/src sonarsource/sonar-scanner-cli
